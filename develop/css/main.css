@@ -1,0 +1,5 @@
+body { min-width: 450px; margin: 5px 0 10px; }
+
+a > img, button { cursor: pointer; }
+
+.label { margin: 0 5px; }

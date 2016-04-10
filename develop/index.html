@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="pokedex">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pokemons</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+<div class="container-fluid" ng-controller="MainCtrl as vm">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <h1 class="text-center">{{::vm.title}} <span class="badge">{{vm.count}}</span></h1>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-xs-offset-2 col-xs-8 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8">
+            <input type="text" class="form-control" ng-model="search" placeholder="filter by type">
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-xs-6 col-sm-8 col-md-9">
+            <div class="row">
+                <div ng-repeat="pokemon in vm.pokemonsList | filter:search" class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="thumbnail text-center">
+                        <a ng-click="vm.getPokemon(pokemon.id)">
+                            <img width="90" height="90" src="{{pokemon.avatar}}" alt="{{pokemon.name}}" class="img-circle">
+                        </a>
+                        <div class="caption">
+                            <h2>{{pokemon.name}}</h2>
+                            <h3>
+                        <span class="label label-info" ng-repeat="type in pokemon.types">
+                            {{type.name}}
+                        </span>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-3" ng-if="vm.pokemon.id">
+            <div class="row">
+                <div class="thumbnail text-center">
+                    <img src="{{vm.pokemon.avatar}}" alt="{{vm.pokemon.name}}" class="img-circle">
+                    <div class="caption">
+                        <h2>{{vm.pokemon.name}} #{{vm.pokemon.id}}</h2>
+                        <table class="table">
+                            <tr>
+                                <td>Type</td>
+                                <td>
+                                    <span ng-repeat="type in vm.pokemon.types">{{type.name}}, </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Attack</td>
+                                <td>{{vm.pokemon.attack}}</td>
+                            </tr>
+                            <tr>
+                                <td>Defense</td>
+                                <td>{{vm.pokemon.defense}}</td>
+                            </tr>
+                            <tr>
+                                <td>HP</td>
+                                <td>{{vm.pokemon.hp}}</td>
+                            </tr>
+                            <tr>
+                                <td>SP Attack</td>
+                                <td>{{vm.pokemon.spAtk}}</td>
+                            </tr>
+                            <tr>
+                                <td>SP Defence</td>
+                                <td>{{vm.pokemon.spDef}}</td>
+                            </tr>
+                            <tr>
+                                <td>Speed</td>
+                                <td>{{vm.pokemon.speed}}</td>
+                            </tr>
+                            <tr>
+                                <td>Weight</td>
+                                <td>{{vm.pokemon.weight}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total moves</td>
+                                <td>{{vm.pokemon.totalMoves}}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <button ng-click="vm.closeInfo()" type="button" class="btn btn-link">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row" ng-if="vm.pokemonsList.length">
+        <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6">
+            <button ng-click="vm.loadMore()" type="button" class="btn btn-info btn-lg btn-block">Load more</button>
+        </div>
+    </div>
+</div>
+
+<script src="../node_modules/angular/angular.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
